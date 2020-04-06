@@ -1,0 +1,107 @@
+.calculate-cost {
+	width: 70%;
+	margin: 0 15%;
+	padding: 2rem 1rem;
+	font-size: 1.5rem;
+}
+
+.calculate-cost-headline {
+	text-align: center;
+	margin-top: 0;
+	margin-bottom: 1rem;
+}
+
+.coptions-section-left {
+	width: 35%;
+	margin-right: 15%;
+}
+
+.coptions-section-right {
+	width: 50%;
+}
+
+.coption-block {
+	width: 100%;
+	margin-bottom: 1rem;
+}
+
+.coption-title {
+	display: block;
+	width: 46%;
+	margin-right: 4%;
+	padding: 1rem 0;
+	color: #676767;
+	font-weight: bold;
+}
+
+.coption-grey-border {
+	border-top: 1px solid #efefef;
+	border-left: 1px solid #efefef;
+	border-right: 5px solid #efefef;
+	border-bottom: 1px solid #efefef;
+}
+
+.coption-select-container {
+	position: relative;
+	width: 50%;
+	padding: 1rem 0;
+	text-align: center;
+	
+}
+
+.coption-select-icon {
+	color: #878787;
+	margin-right: .5rem;
+}
+
+.coption-input-wrapper {
+	width: 50%;
+}
+
+.coption-input {
+	width: 100%;
+	padding: 1rem;
+	outline: 0;
+}
+
+.coption-select {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	-moz-opacity: 0;
+	opacity: 0;
+ 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	cursor: pointer;
+}
+
+.coption-input-container {
+	position: relative;
+	width: 14%;
+	margin-right: 4%;
+}
+
+.coption-input-container:last-child {
+	margin-right: 0;
+}
+
+.coption-input-full {
+	width: 100%;
+	padding: 1rem;
+	outline: 0;
+}
+
+.calculate-action {
+	text-align: center;
+}
+
+.calculate-result {
+	width: 100%;
+	margin: 1rem 0;
+	color: #676767;
+	font-weight: bold;
+	text-align: center;
+	font-size: 1.2rem;
+}

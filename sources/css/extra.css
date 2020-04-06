@@ -1,0 +1,57 @@
+@font-face {
+	font-family: 'font-awesome-regular';
+	src: url(../fonts/fa-regular-400.ttf);
+}
+
+@font-face {
+	font-family: 'font-awesome-solid';
+	src: url(../fonts/fa-solid-900.ttf);
+}
+
+body {
+	font-size: 1rem;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+.font-size-d8 {
+  font-size: .8rem;
+}
+
+.float-left {
+  float: left;
+}
+
+.float-right {
+  float: right;
+}
+
+.bsizing-border-box {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.border-radius-10px {
+  border-radius: 10px;
+}
+
+.border-radius-5px {
+  border-radius: 5px;
+}
+
+.shadow-light {
+  -webkit-box-shadow: 0 0 0.1px 2px rgba(0, 0, 0, .2);
+  -moz-box-shadow: 0 0 0.1px 2px rgba(0, 0, 0, .2);
+  box-shadow: 0 0 0.1px 2px rgba(0, 0, 0, .2);
+}
+
+.fa {
+	font-family: 'font-awesome-regular', 'font-awesome-solid';
+}
+
+.fa-caret-down::before {
+	content: "\f0d7";
+}

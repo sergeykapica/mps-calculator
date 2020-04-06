@@ -1,0 +1,216 @@
+#delivery-types-table {
+	width: 100%;
+	table-layout: fixed;
+	border-collapse: collapse;
+}
+
+.dtypes-table-head {
+	border-bottom: 1px solid #b4b9be;
+}
+
+.dtypes-table-field {
+	padding: .5rem 0;
+}
+
+.dtypes-table-tr:nth-child( 2n ) {
+	background-color: rgba( 180, 185, 190, .5 );
+}
+
+.delivery-type-checkbox {
+	width: 1rem;
+	height: 1rem;
+	margin: 0;
+	vertical-align: middle;
+	cursor: pointer;
+}
+
+.delivery-type-id {
+	width: 2rem;
+	text-align: center;
+}
+
+.delivery-type-title {
+	position: relative;
+	text-align: left;
+}
+
+.delivery-type-elink {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	color: #000;
+	text-decoration: none;
+}
+
+.mps-calculator-head {
+	width: 100%;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+
+.delivery-action-button {
+	display: block;
+	width: 20%;
+	padding: .5rem 1rem;
+	text-align: center;
+	border: none;
+	outline: 0;
+	color: #fff;
+	background-color: #0073aa;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.types-empty {
+	text-align: center;
+}
+
+#add-dtype-form {
+	padding: 1rem 0;
+}
+
+.dform-input {
+	display: block;
+	width: 25%;
+	float: left;
+}
+
+.dform-textarea {
+	height: 7rem;
+	resize: none;
+}
+
+.dtype-form-section {
+	width: 100%;
+	float: left;
+	margin-bottom: 1rem;
+}
+
+#delivery-action-wrapper {
+	position: relative;
+	width: 100%;
+	min-height: 100vh;
+}
+
+.action-notify {
+	position: absolute;
+	left: 0;
+	padding: 1rem;
+	float: left;
+	color: #fff;
+	font-size: .8rem;
+	line-height: 1;
+	background-color: #23282d;
+}
+
+.notify-up {
+	-webkit-animation: notify-up .3s ease-in 0s forwards;
+     -moz-animation: notify-up .3s ease-in 0s forwards;
+       -o-animation: notify-up .3s ease-in 0s forwards;
+          animation: notify-up .3s ease-in 0s forwards;
+}
+
+.notify-down {
+	-webkit-animation: notify-down .3s ease-in 0s forwards;
+     -moz-animation: notify-down .3s ease-in 0s forwards;
+       -o-animation: notify-down .3s ease-in 0s forwards;
+          animation: notify-down .3s ease-in 0s forwards;
+}
+
+@keyframes notify-up  {
+	
+	from {
+		bottom: -2.8rem;
+	}
+	
+	to {
+		bottom: 2.8rem;
+	}
+	
+}
+
+@-webkit-keyframes notify-up  {
+	
+	from {
+		bottom: -2.8rem;
+	}
+	
+	to {
+		bottom: 2.8rem;
+	}
+	
+}
+
+@-moz-keyframes notify-up  {
+	
+	from {
+		bottom: -2.8rem;
+	}
+	
+	to {
+		bottom: 2.8rem;
+	}
+	
+}
+
+@-o-keyframes notify-up  {
+	
+	from {
+		bottom: -2.8rem;
+	}
+	
+	to {
+		bottom: 2.8rem;
+	}
+	
+}
+
+@keyframes notify-down  {
+	
+	from {
+		bottom: 2.8rem;
+	}
+	
+	to {
+		bottom: -2.8rem;
+	}
+	
+}
+
+@-webkit-keyframes notify-down  {
+	
+	from {
+		bottom: 2.8rem;
+	}
+	
+	to {
+		bottom: -2.8rem;
+	}
+	
+}
+
+@-moz-keyframes notify-down  {
+	
+	from {
+		bottom: 2.8rem;
+	}
+	
+	to {
+		bottom: -2.8rem;
+	}
+	
+}
+
+@-o-keyframes notify-down  {
+	
+	from {
+		bottom: 2.8rem;
+	}
+	
+	to {
+		bottom: -2.8rem;
+	}
+	
+}
