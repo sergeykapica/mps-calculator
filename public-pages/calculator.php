@@ -137,7 +137,7 @@ if( $type === 'our' )
 }
 else
 {
-
+	
 ?>
 	
 	<div class="calculate-cost">
@@ -189,13 +189,13 @@ else
 							
 							<?php
 							
-							foreach( $countries_list[ $type ] as $country )
+							foreach( $citiesList[ $countries_list[ $type ][ 0 ][ 'country' ] ] as $city )
 							{
-								if( isset( $translate_locations_ua_reverse[ strtolower( $country[ 'city' ] ) ] ) )
+								if( isset( $translate_locations_ua_reverse[ strtolower( $city ) ] ) )
 								{
 							?>
 							
-								<option value="<?php echo strtolower( $country[ 'city' ] ); ?>"><?php echo $translate_locations_ua_reverse[ strtolower( $country[ 'city' ] ) ]; ?></option>
+								<option value="<?php echo strtolower( $city ); ?>"><?php echo $translate_locations_ua_reverse[ strtolower( $city ) ]; ?></option>
 							
 							<?php
 								}
@@ -229,6 +229,12 @@ else
 
 }
 
+?>
+	<script type="text/template" id="location-item">
+		<option value="{{LOCATION_SLUG}}" {{SELECTED}}>{{LOCATION_NAME}}</option>
+	</script>
+<?php
+
 if( $type === 'our' )
 {
 	
@@ -257,10 +263,6 @@ if( $type === 'our' )
 			<button class="calculate-button calculate-order-button text-uppercase">{{ORDER_SUBMIT_BUTTON_TITLE}}</button>
 			<a href="/" data-id="delivery-type-{{DELIVERY_TYPE}}" class="ctype-detail-link type-detail-button text-uppercase font-size-d8 float-left">*{{DELIVERY_TYPE_DETAIL}}</a>
 		</section>
-	</script>
-
-	<script type="text/template" id="location-item">
-		<option value="{{LOCATION_SLUG}}" {{SELECTED}}>{{LOCATION_NAME}}</option>
 	</script>
 
 	<script type="text/template" id="delivery-type-template">
@@ -864,6 +866,10 @@ else
 	<script type="text/javascript">
 	$( window ).ready( function()
 	{
+		var calculateData = JSON.parse( '<?php echo addslashes( json_encode( $countries_list[ $type ] ) ); ?>' );
+		var citiesList = JSON.parse( '<?php echo addslashes( json_encode( $citiesList ) ); ?>' );
+		var translateLocationsReverseUA = JSON.parse( '<?php echo addslashes( json_encode( $translate_locations_ua_reverse ) ); ?>' );
+		
 		var oValidator = new Validator( [
 			{
 				name: 'weight',
@@ -986,8 +992,6 @@ else
 						calculatedCapacity: calculatedCapacity
 					}
 					
-					let calculateData = JSON.parse( '<?php echo addslashes( json_encode( $countries_list[ $type ] ) ); ?>' );
-					
 					var priceCalculateResult = Calculate.getPriceByWeight( calculateData, calculatePriceParams );
 					
 					if( typeof priceCalculateResult === 'object' && priceCalculateResult.status === 'undetermined' )
@@ -1014,13 +1018,54 @@ else
 		} );
 		
 		let coptionSelect = $( '.coption-select' );
+		var citiesSelect = $( 'select[name="city"]' );
+		var locationItem = $( '#location-item' );
 		
 		coptionSelect.on( 'change', function( e )
 		{
 			let thisSelectButton = $( this );
 
-			let currentOption = thisSelectButton.find( 'option' ).eq( thisSelectButton[0].selectedIndex );
+			var currentOption = thisSelectButton.find( 'option' ).eq( thisSelectButton[0].selectedIndex );
 			thisSelectButton.parent().find( '.coption-select-title' ).text( currentOption.text() );
+			
+			if( thisSelectButton.attr( 'name' ) === 'country' )
+			{
+				var cityItems = '';
+				var currentCountry = citiesList[ currentOption.val() ];
+				
+				for( let i in currentCountry )
+				{
+					let templateLocationParams = 
+					{
+						LOCATION_SLUG: currentCountry[ i ],
+						LOCATION_NAME: translateLocationsReverseUA[ currentCountry[ i ] ],
+						SELECTED: i === 0 ? 'selected' : ''
+					};
+
+					if( translateLocationsReverseUA[ currentCountry[ i ] ] !== undefined )
+					{
+						cityItems += templateCompilator.compile( locationItem.html(), templateLocationParams );
+					}
+				}
+				
+				if( cityItems !== '' )
+				{
+					let templateLocationParams = 
+					{
+						LOCATION_SLUG: '',
+						LOCATION_NAME: translateLocationsReverseUA[ 'select_action_city' ],
+						SELECTED: 'selected'
+					};
+					
+					cityItems = templateCompilator.compile( locationItem.html(), templateLocationParams ) + cityItems;
+					citiesSelect.html( cityItems );
+					citiesSelect.parent().find( '.coption-select-title' ).text( translateLocationsReverseUA[ 'select_action_city' ] );
+				}
+				else
+				{
+					citiesSelect.html( '' );
+				}
+			}
 		} );
 	} );
 </script>

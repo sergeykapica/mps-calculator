@@ -108,6 +108,8 @@ function init()
 	
 	$translate_strings = array_merge( $translate_locations_ru, $translate_locations_ua );
 	
+	do_action( 'translate_strings_list' );
+	
 	$translate_locations_ua_reverse = translateToLowerCase( Translate::reverse( $translate_locations_ua ) );
 	
 	$translate_locations = json_encode( $translate_strings );

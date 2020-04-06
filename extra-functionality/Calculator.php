@@ -26,6 +26,12 @@ class Calculator
 			{
 				$calculate_data = self::get_sorted_structure( $delivery_type_data );
 				$calculate_data = array_values( $calculate_data )[ 0 ];
+				$citiesList = array();
+				
+				foreach( $countries_list[ $type ] as $country )
+				{
+					$citiesList[ mb_strtolower( $country[ 'country' ] ) ][] = mb_strtolower ( $country[ 'city' ] );
+				}
 				
 				require_once( $_SERVER[ 'DOCUMENT_ROOT' ] . '/wordpress/wp-content/plugins/mps-calculator/public-pages/calculator.php' );
 			}
