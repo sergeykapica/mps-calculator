@@ -474,7 +474,7 @@ if( $type === 'our' )
 						var senderLocationCity = $( 'input[name="sender_location_city"]' );
 						var receiverLocationCountry = $( 'select[name="receiver_location_country"]' );
 						var receiverLocationCity = $( 'input[name="receiver_location_city"]' );
-						var translateLocation = JSON.parse( '<?php echo $translate_locations; ?>' );
+						var translateLocation = JSON.parse( '<?php echo addslashes( $translate_locations ); ?>' );
 						
 						var validateMessages = '';
 						
@@ -633,7 +633,7 @@ if( $type === 'our' )
 							
 							var deliveryTypesHtml = '';
 							var deliveryTypesDescription = '';
-							var translateLocationsReverseUA = JSON.parse( '<?php echo json_encode( $translate_locations_ua_reverse ); ?>' );
+							var translateLocationsReverseUA = JSON.parse( '<?php echo addslashes( json_encode( $translate_locations_ua_reverse ) ); ?>' );
 							var calculatorOrderTemplate = $( '#calculator-order-template' );
 							var deliveryTypeTemplate = $( '#delivery-type-template' );
 							var deliveryTypeItemTemplate = $( '#delivery-titem-template' );
