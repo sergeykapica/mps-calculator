@@ -144,7 +144,7 @@ else
 		<h1 class="calculate-cost-headline text-uppercase"><?php echo $translate_locations_ua_reverse[ 'cost_calculate' ]; ?></h1>
 		<div class="calculate-options">
 			<div>
-                <section class="calculate-options-section calculate-section-30 float-left">
+                <?php/*<section class="calculate-options-section calculate-section-30 float-left">
 					<div class="coption-block float-left">
 						<div class="coption-select-container coption-grey-border coption-shadow border-radius-10px float-left bsizing-border-box">
 								
@@ -163,7 +163,7 @@ else
 							?>
 						</div>
 					</div>
-				</section>
+				</section>*/?>
                 <section class="calculate-options-section calculate-section-30 float-left">
 					<div class="coption-block float-left">
 						<div class="coption-select-container coption-grey-border coption-shadow border-radius-10px float-left bsizing-border-box">
@@ -186,7 +186,7 @@ else
 						</div>
 					</div>
 				</section>
-				<section class="calculate-options-section calculate-section-30 float-left">
+				<section class="calculate-options-section calculate-section-30 float-right">
 					<div class="coption-block float-left">
 						<div class="coption-select-container coption-grey-border coption-shadow border-radius-10px float-left bsizing-border-box">
 						

@@ -91,7 +91,7 @@
 							{
                                 return {
                                     status: 'under',
-                                    value: currentCountry.delivery_type === 'cargo' ? ( ( currentCountry.params.optimal_price * params.calculatedWeight ) * params.fuelIncrease ).toString().replace( /^(\d+)?\.(\d{2})\d+/, '$1.$2' ) : currentCountry.params.min_price.toString().replace( /^(\d+)?\.(\d{2})\d+/, '$1.$2' ) + ( currentCountry.params.min_price.toString().replace( /^(\d+)?\.(\d{2})\d+/, '$1.$2' ) * params.fuelIncrease )
+                                    value: currentCountry.delivery_type === 'cargo' ? ( ( currentCountry.params.optimal_price * params.calculatedWeight ) * params.fuelIncrease ).toString().replace( /^(\d+)?\.(\d{2})\d+/, '$1.$2' ) : ( currentCountry.params.min_price + ( currentCountry.params.min_price * params.fuelIncrease ) ).toString().replace( /^(\d+)?\.(\d{2})\d+/, '$1.$2' )
                                 };
 							}
 							
