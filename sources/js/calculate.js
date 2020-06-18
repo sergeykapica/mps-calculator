@@ -8,12 +8,12 @@
 
 			let calculate = ( width * length * height ) * ethalonValue;
 			
-			return calculate.toFixed( 6 );
+			return calculate.toString().replace( /^(\d+)?\.(\d{2})\d+/, '$1.$2' );
 		},
 		
 		getEthalon: function( weight, ethalon )
 		{
-			return ( weight * ethalon ).toFixed( 6 ) * 1;
+			return ( weight * ethalon ).toString().replace( /^(\d+)?\.(\d{2})\d+/, '$1.$2' ) * 1;
 		},
 		
 		getPriceByWeight: function( calculateData, params )
@@ -21,13 +21,13 @@
 			for( dataKey in calculateData )
 			{
 				let currentCountry = calculateData[ dataKey ];
-                
+				
 				currentCountry.country = currentCountry.country.toLowerCase();
 				currentCountry.city = currentCountry.city.toLowerCase();
-				params.paramCountry = params.paramCountry.toLowerCase();
-				params.paramCity = params.paramCity.toLowerCase();
+				params.paramCountry = params.paramCountry !== '' ? params.paramCountry.toLowerCase() : params.paramCountry;
+				params.paramCity = params.paramCity !== undefined ? params.paramCity.toLowerCase() : params.paramCity;
 				
-				if( params.paramCountry == currentCountry.country && currentCountry.city !== undefined && params.paramCity == currentCountry.city || params.paramCountry == currentCountry.country )
+				if( params.paramCountry == currentCountry.country && currentCountry.city !== undefined && params.paramCity == currentCountry.city || params.onlyCountry !== undefined && params.paramCountry == currentCountry.country )
 				{
 					for( paramKey in currentCountry.params.weight_list )
 					{
@@ -48,7 +48,7 @@
 									var calculatedPrice = params.calculatedWeight * currentCountry.params.optimal_price;
 								}
 								
-								calculatedPrice = parseFloat( calculatedPrice + ( calculatedPrice * params.fuelIncrease ) ).toFixed( 6 );
+								calculatedPrice = parseFloat( calculatedPrice + ( calculatedPrice * params.fuelIncrease ) ).toString().replace( /^(\d+)?\.(\d{2})\d+/, '$1.$2' );
 							}
 							else
 							{
@@ -56,6 +56,8 @@
 								{
 									let prevWeightData = currentCountry.params.weight_list[ paramKey - 1 ];
 									let additionalWeight = params.calculatedWeight - prevWeightData.kg;
+									
+									//console.log( params );
 									
 									var calculatedPrice = prevWeightData.price + ( additionalWeight * prevWeightData.price_for_each_kg );
 								}
@@ -66,14 +68,14 @@
 									var calculatedPrice = params.calculatedWeight * prevWeightData.price;
 								}
 								
-								calculatedPrice = parseFloat( calculatedPrice + ( calculatedPrice * params.fuelIncrease ) ).toFixed( 6 );
+								calculatedPrice = parseFloat( calculatedPrice + ( calculatedPrice * params.fuelIncrease ) ).toString().replace( /^(\d+)?\.(\d{2})\d+/, '$1.$2' );
 							}
 							
 							if( currentParamsWeight.kg <= params.minPriceMaxSegment && calculatedPrice < currentCountry.params.min_price )
 							{
 								return {
                                     status: 'under',
-                                    value: currentCountry.delivery_type === 'cargo' ? ( ( currentCountry.params.optimal_price * params.calculatedWeight ) * params.fuelIncrease ) : currentCountry.params.min_price + ( currentCountry.params.min_price * params.fuelIncrease )
+                                    value: currentCountry.delivery_type === 'cargo' ? ( ( currentCountry.params.optimal_price * params.calculatedWeight ) * params.fuelIncrease ).toString().replace( /^(\d+)?\.(\d{2})\d+/, '$1.$2' ) : currentCountry.params.min_price.toString().replace( /^(\d+)?\.(\d{2})\d+/, '$1.$2' ) + ( currentCountry.params.min_price.toString().replace( /^(\d+)?\.(\d{2})\d+/, '$1.$2' ) * params.fuelIncrease )
                                 };
 							}
                             
@@ -83,13 +85,13 @@
 						{	
 							var calculatedPrice = currentParamsWeight.price;
 							
-							calculatedPrice = parseFloat( calculatedPrice + ( calculatedPrice * params.fuelIncrease ) ).toFixed( 6 );
+							calculatedPrice = parseFloat( calculatedPrice + ( calculatedPrice * params.fuelIncrease ) ).toString().replace( /^(\d+)?\.(\d{2})\d+/, '$1.$2' );
 							
 							if( currentParamsWeight.kg <= params.minPriceMaxSegment && calculatedPrice < currentCountry.params.min_price )
 							{
                                 return {
                                     status: 'under',
-                                    value: currentCountry.delivery_type === 'cargo' ? ( ( currentCountry.params.optimal_price * params.calculatedWeight ) * params.fuelIncrease ) : currentCountry.params.min_price + ( currentCountry.params.min_price * params.fuelIncrease )
+                                    value: currentCountry.delivery_type === 'cargo' ? ( ( currentCountry.params.optimal_price * params.calculatedWeight ) * params.fuelIncrease ).toString().replace( /^(\d+)?\.(\d{2})\d+/, '$1.$2' ) : currentCountry.params.min_price.toString().replace( /^(\d+)?\.(\d{2})\d+/, '$1.$2' ) + ( currentCountry.params.min_price.toString().replace( /^(\d+)?\.(\d{2})\d+/, '$1.$2' ) * params.fuelIncrease )
                                 };
 							}
 							

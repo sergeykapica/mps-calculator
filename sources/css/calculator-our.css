@@ -136,14 +136,14 @@
 }
 
 .calculate-buttons {
-  width: 70%;
-  margin: 1rem 15% 0 15%;
+  width: 80%;
+  margin: 1rem 10% 0 10%;
 }
 
 .calculate-button {
   width: 48%;
   color: #fff;
-  padding: .7rem;
+  padding: 1rem 3rem;
   border: 0;
   outline: 0;
   text-align: center;

@@ -92,7 +92,7 @@ if( $type === 'our' )
 							<input type="text" name="weight[]" placeholder="<?php echo $translate_locations_ua_reverse[ 'weight_kg' ]; ?>" class="calculate-param-input bsizing-border-box font-size-d8 border-radius-5px shadow-light"/>
 						</div>
 						<div class="cparam-input-container float-left">
-						<input type="text" name="capacity[]" placeholder="<?php echo $translate_locations_ua_reverse[ 'capacity_m' ]; ?>&#178;" class="calculate-param-input bsizing-border-box font-size-d8 border-radius-5px shadow-light"/>
+							<input type="text" name="capacity[]" placeholder="<?php echo $translate_locations_ua_reverse[ 'capacity_m' ]; ?>&#178;" class="calculate-param-input bsizing-border-box font-size-d8 border-radius-5px shadow-light"/>
 						</div>
 						<div class="cparam-input-container float-left">
 							<input type="text" name="width[]" placeholder="<?php echo $translate_locations_ua_reverse[ 'width_m' ]; ?>" class="calculate-param-input bsizing-border-box font-size-d8 border-radius-5px shadow-light"/>
@@ -143,86 +143,99 @@ else
 	<div class="calculate-cost">
 		<h1 class="calculate-cost-headline text-uppercase"><?php echo $translate_locations_ua_reverse[ 'cost_calculate' ]; ?></h1>
 		<div class="calculate-options">
-			<section class="calculate-options-section coptions-section-left float-left">
-				<div class="coption-block float-left">
-					<span class="coption-title float-left font-bold"><?php echo $translate_locations_ua_reverse[ 'select_country' ]; ?>:</span>
-					<div class="coption-select-container coption-grey-border float-left bsizing-border-box">
-						<span class="coption-select-title"><?php echo $translate_locations_ua_reverse[ 'select_action_country' ]; ?></span>
-						<span class="coption-select-icon fa fa-caret-down float-right"></span>
-						<select name="country" class="coption-select">
-							<option><?php echo $translate_locations_ua_reverse[ 'select_action_country' ]; ?></option>
-							
+			<div>
+                <section class="calculate-options-section calculate-section-30 float-left">
+					<div class="coption-block float-left">
+						<div class="coption-select-container coption-grey-border coption-shadow border-radius-10px float-left bsizing-border-box">
+								
 							<?php
+						
+							global $params;
+					
+							$params = array(
+								'data_title' => $translate_locations_ua_reverse[ 'select_action_subtype' ],
+								'data_type' => 'subtypes',
+								'data_list' => $delivery_sub_types
+							);
 							
-							$countries_register_list = array();
-							
-							foreach( $countries_list[ $type ] as $country )
-							{
-								if( ! in_array( $country[ 'country' ], $countries_register_list ) )
-								{
-							?>
-									<option value="<?php echo strtolower( $country[ 'country' ] ); ?>"><?php echo isset( $translate_locations_ua_reverse[ strtolower( $country[ 'country' ] ) ] ) ? $translate_locations_ua_reverse[ strtolower( $country[ 'country' ] ) ] : ''; ?></option>
-							<?php
-									$countries_register_list[] = $country[ 'country' ];
-								}
-							}
+							include( __DIR__ . '/subtypes-list.php' );
 							
 							?>
-						</select>
+						</div>
 					</div>
-				</div>
-				<div class="coption-block float-left">
-					<span class="coption-title float-left font-bold"><?php echo $translate_locations_ua_reverse[ 'specify_weight' ]; ?>:</span>
-					<div class="coption-input-wrapper float-left">
-						<input type="text" name="weight" placeholder="<?php echo $translate_locations_ua_reverse[ 'kg' ]; ?>" class="coption-input coption-grey-border bsizing-border-box"/>
-					</div>
-				</div>
-			</section>
-			<section class="calculate-options-section coptions-section-right float-left">
-				<div class="coption-block float-left">
-					<span class="coption-title float-left font-bold"><?php echo $translate_locations_ua_reverse[ 'select_city' ]; ?>:</span>
-					<div class="coption-select-container coption-grey-border float-left bsizing-border-box">
-						<span class="coption-select-title"><?php echo $translate_locations_ua_reverse[ 'select_action_city' ]; ?></span>
-						<span class="coption-select-icon fa fa-caret-down float-right"></span>
-						<select name="city" class="coption-select">
-							<option><?php echo $translate_locations_ua_reverse[ 'select_action_city' ]; ?></option>
-							
+				</section>
+                <section class="calculate-options-section calculate-section-30 float-left">
+					<div class="coption-block float-left">
+						<div class="coption-select-container coption-grey-border coption-shadow border-radius-10px float-left bsizing-border-box">
+						
 							<?php
 							
-							foreach( $citiesList[ $countries_list[ $type ][ 0 ][ 'country' ] ] as $city )
-							{
-								if( isset( $translate_locations_ua_reverse[ strtolower( $city ) ] ) )
-								{
+							global $params;
+					
+							$params = array(
+								'data_title' => $translate_locations_ua_reverse[ 'select_action_country' ],
+								'data_type' => 'country',
+								'data_list' => $countries_list[ $type ],
+								'search_title' => 'Пошук країни'
+							);
+							
+							include( __DIR__ . '/locations-list.php' );
+							
+							?>
+									
+						</div>
+					</div>
+				</section>
+				<section class="calculate-options-section calculate-section-30 float-left">
+					<div class="coption-block float-left">
+						<div class="coption-select-container coption-grey-border coption-shadow border-radius-10px float-left bsizing-border-box">
+						
+							<?php 
+							
+							$params = array(
+								'data_title' => $translate_locations_ua_reverse[ 'select_action_city' ],
+								'data_type' => 'city',
+								'data_list' => $citiesList[ strtolower( $countries_list[ $type ][ 0 ][ 'country' ] ) ],
+								'search_title' => 'Пошук міста'
+							);
+							
+							include( __DIR__ . '/locations-list.php' );
+
 							?>
 							
-								<option value="<?php echo strtolower( $city ); ?>"><?php echo $translate_locations_ua_reverse[ strtolower( $city ) ]; ?></option>
-							
-							<?php
-								}
-							}
-							
-							?>
-						</select>
+						</div>
 					</div>
-				</div>
-				<div class="coption-block float-left">
-					<span class="coption-title float-left font-bold"><?php echo $translate_locations_ua_reverse[ 'select_cargo_weight' ]; ?>:</span>
-					<div class="coption-input-container float-left">
-						<input type="text" name="width" placeholder="<?php echo $translate_locations_ua_reverse[ 'width_m' ]; ?>" class="coption-input-full coption-grey-border float-left bsizing-border-box"/>
+				</section>
+			</div>
+			<div>
+				<section class="calculate-options-section coptions-section-left float-left">
+					<div class="coption-block float-left">
+						<div class="coption-input-wrapper float-left">
+							<input type="text" name="weight" placeholder="<?php echo $translate_locations_ua_reverse[ 'set_kg' ]; ?>" class="coption-input coption-grey-border coption-shadow border-radius-10px coption-shadow bsizing-border-box"/>
+						</div>
 					</div>
-					<div class="coption-input-container float-left">
-						<input type="text" name="length" placeholder="<?php echo $translate_locations_ua_reverse[ 'length_m' ]; ?>" class="coption-input-full coption-grey-border float-left bsizing-border-box"/>
+				</section>
+				<section class="calculate-options-section coptions-section-right float-right">
+					<div class="coption-block float-left">
+						<div class="coption-input-container float-left">
+							<input type="text" name="width" placeholder="<?php echo $translate_locations_ua_reverse[ 'width_m' ]; ?>" class="coption-input-full coption-grey-border coption-shadow border-radius-10px float-left bsizing-border-box"/>
+						</div>
+						<div class="coption-input-container float-left">
+							<input type="text" name="length" placeholder="<?php echo $translate_locations_ua_reverse[ 'length_m' ]; ?>" class="coption-input-full coption-grey-border coption-shadow border-radius-10px float-left bsizing-border-box"/>
+						</div>
+						<div class="coption-input-container float-left">
+							<input type="text" name="height" placeholder="<?php echo $translate_locations_ua_reverse[ 'height_m' ]; ?>" class="coption-input-full coption-grey-border coption-shadow border-radius-10px float-left bsizing-border-box"/>
+						</div>
 					</div>
-					<div class="coption-input-container float-left">
-						<input type="text" name="height" placeholder="<?php echo $translate_locations_ua_reverse[ 'height_m' ]; ?>" class="coption-input-full coption-grey-border float-left bsizing-border-box"/>
-					</div>
-				</div>
-			</section>
+				</section>
+			</div>
 		</div>
 		<div class="calculate-result float-left"></div>
 		<div class="calculate-action">
 			<button class="calculate-button text-uppercase" id="calculate-params-button"><?php echo $translate_locations_ua_reverse[ 'calculate' ]; ?></button>
 		</div>
+		
+		<script type="text/javascript" src="<?php echo plugins_url( 'mps-calculator/sources/js/get-top-parent.js' ); ?>"></script>
 	</div>
 	
 <?php
@@ -230,15 +243,16 @@ else
 }
 
 ?>
-	<script type="text/template" id="location-item">
-		<option value="{{LOCATION_SLUG}}" {{SELECTED}}>{{LOCATION_NAME}}</option>
-	</script>
+	
 <?php
 
 if( $type === 'our' )
 {
 	
 ?>
+	<script type="text/template" id="location-item">
+		<option value="{{LOCATION_SLUG}}" class="locations-select-item {{SELECTED}}">{{LOCATION_NAME}}</option>
+	</script>
 
 	<script type="text/template" id="calculator-order-template">
 		<section class="calculate-data-item float-left bsizing-border-box" id="delivery-type-{{DELIVERY_TYPE}}">
@@ -310,7 +324,7 @@ if( $type === 'our' )
 					OCalculator.pageNumber = 0;
 				}
 				
-				OCalculator.goToPage();
+				OCalculator.goToPage( true );
 				OCalculator.updateNavigationItem();
 			};
 			
@@ -327,11 +341,29 @@ if( $type === 'our' )
 				OCalculator.updateNavigationItem();
 			};
 			
-			OCalculator.goToPage = function()
+			OCalculator.goToPage = function( clearData = false )
 			{
 				// set active page
 
-				pages.parent().find( '.cdata-page-active' ).removeClass( 'cdata-page-active' );
+				let activePage = pages.parent().find( '.cdata-page-active' );
+
+				if( clearData )
+				{
+					if( activePage.index() === 2 )
+					{
+						let calculateParamInput = $( '.calculate-param-input' );
+						calculateParamInput.val( '' );
+					}
+					else if( activePage.index() === 1 )
+					{
+						$( '.calculate-cargo-type' )[ 0 ].selectedIndex = 0;
+						$( '.location-country' )[ 0 ].selectedIndex = 0;
+						$( '.location-city' ).val( '' );
+						$( '.calculate-param-input' ).val( '' );;
+					}
+				}
+
+				activePage.removeClass( 'cdata-page-active' );
 				pages.eq( OCalculator.pageNumber ).addClass( 'cdata-page-active' );
 			};
 			
@@ -353,7 +385,7 @@ if( $type === 'our' )
 				if( target.hasClass( 'calculate-slide-item' ) )
 				{
 					OCalculator.pageNumber = target.index();
-					OCalculator.goToPage();
+					OCalculator.goToPage( true );
 					OCalculator.updateNavigationItem();
 				}
 			} );
@@ -393,41 +425,40 @@ if( $type === 'our' )
 					name: 'weight[]',
 					params: {
 						isEmpty: true,
-						anotherField: 'capacity[]'
+						anotherField: 'capacity[]',
+						limitIntegerLength: 2
 					}
 				},
 				
 				{
 					name: 'capacity[]',
 					params: {
-						isNumber: true
+						isNumber: true,
+						limitIntegerLength: 2
 					}
 				},
 				
 				{
 					name: 'width[]',
 					params: {
-						isEmpty: true,
 						isNumber: true,
-						anotherField: 'capacity[]'
+						limitIntegerLength: 2
 					}
 				},
 				
 				{
 					name: 'length[]',
 					params: {
-						isEmpty: true,
 						isNumber: true,
-						anotherField: 'capacity[]'
+						limitIntegerLength: 2
 					}
 				},
 				
 				{
 					name: 'height[]',
 					params: {
-						isEmpty: true,
 						isNumber: true,
-						anotherField: 'capacity[]'
+						limitIntegerLength: 2
 					}
 				}
 			] );
@@ -472,6 +503,8 @@ if( $type === 'our' )
 							validatorErrorNotifies.remove();
 						}
 					
+                        var deliverySubType = $( 'select[name="delivery_type"]' );
+				        deliverySubType = deliverySubType.find( 'option' ).eq( deliverySubType[0].selectedIndex ).val();
 						var senderLocationCountry = $( 'select[name="sender_location_country"]' );
 						var senderLocationCity = $( 'input[name="sender_location_city"]' );
 						var receiverLocationCountry = $( 'select[name="receiver_location_country"]' );
@@ -491,7 +524,7 @@ if( $type === 'our' )
 							`;
 						}
 						
-						if( senderLocationCity.val() === '' )
+						if( senderLocationCity.val() === '' && deliverySubType !== 'documents' )
 						{
 							validateMessages += 
 							`
@@ -513,7 +546,7 @@ if( $type === 'our' )
 							`;
 						}
 						
-						if( receiverLocationCity.val() === '' )
+						if( receiverLocationCity.val() === '' && deliverySubType !== 'documents' )
 						{
 							validateMessages += 
 							`
@@ -545,12 +578,11 @@ if( $type === 'our' )
 						else
 						{
 							var deliveryTypes = JSON.parse( '<?php echo json_encode( $delivery_types ); ?>' );
-							var deliverySubType = $( 'select[name="delivery_type"]' );
-							deliverySubType = deliverySubType.find( 'option' ).eq( deliverySubType[0].selectedIndex ).val();
 							var countries_list = JSON.parse( '<?php echo addslashes( json_encode( $countries_list ) ); ?>' );
-							
-							senderLocationCountry = senderLocationCountry.val();
-							receiverLocationCountry = receiverLocationCountry.val();
+                            var minPricesList = JSON.parse( '<?php echo json_encode( $min_prices_list ); ?>' );
+
+							senderLocationCountry = senderLocationCountry.find( 'option' ).eq( senderLocationCountry[ 0 ].selectedIndex ).val();
+							receiverLocationCountry = receiverLocationCountry.find( 'option' ).eq( receiverLocationCountry[ 0 ].selectedIndex  ).val();
 							senderLocationCity = translateLocation[ senderLocationCity.val() ];
 							receiverLocationCity = translateLocation[ receiverLocationCity.val() ];
 							
@@ -601,31 +633,53 @@ if( $type === 'our' )
 									fieldHeight += formatFloat( height.eq( w ).val() ) * 1;
 								} );
 							}
-							
+                            
 							function getLocationOption( deliveryCurrentType, locationType, selectedValue )
 							{
 								var registerLocations = [];
 								var locationItemsHtml = '';
 								var locationItem = $( '#location-item' );
-								
+                                
 								for( let c in countries_list[ deliveryCurrentType.delivery_type ] )
 								{
 									let currentLocation = countries_list[ deliveryCurrentType.delivery_type ][ c ];
-
+                                    
 									if( registerLocations.indexOf( currentLocation[ locationType ].toLowerCase() ) !== -1 )
 									{
 										continue;
 									}
-
-									let templateLocationParams = 
+                                    
+									if( translateLocationsReverseUA[ currentLocation[ locationType ].toLowerCase() ] !== undefined )
 									{
-										LOCATION_SLUG: currentLocation[ locationType ].toLowerCase(),
-										LOCATION_NAME: translateLocationsReverseUA[ currentLocation[ locationType ].toLowerCase() ],
-										SELECTED: currentLocation[ locationType ].toLowerCase() === selectedValue.toLowerCase() ? 'selected' : '',
-										SENDER_LOCATION_TYPE: deliveryCurrentType.delivery_type
-									};
+                                        if( locationType === 'city' )
+                                        { 
+                                            var templateLocationParams = 
+                                            {
+                                                LOCATION_SLUG: currentLocation[ locationType ].toLowerCase(),
+                                                LOCATION_NAME: translateLocationsReverseUA[ currentLocation[ locationType ].toLowerCase() ],
+                                                SENDER_LOCATION_TYPE: deliveryCurrentType.delivery_type
+                                            };
+                                            
+                                            if( selectedValue !== undefined && minPricesList[ deliveryCurrentType.delivery_type ][ selectedValue ] !== undefined )
+                                            { 
+                                                let minPrice = Math.min.apply( null, minPricesList[ deliveryCurrentType.delivery_type ][ selectedValue ] );
+                                                
+                                                templateLocationParams[ 'SELECTED' ] = currentLocation[ 'country' ].toLowerCase() === selectedValue && currentLocation[ 'params' ][ 'min_price' ] === minPrice ? 'selected' : '';
+                                            }
+                                        }
+                                        else
+                                        {
+                                            var templateLocationParams = 
+                                            {
+                                                LOCATION_SLUG: currentLocation[ locationType ].toLowerCase(),
+                                                LOCATION_NAME: translateLocationsReverseUA[ currentLocation[ locationType ].toLowerCase() ],
+                                                SELECTED: currentLocation[ locationType ].toLowerCase() === selectedValue ? 'selected' : '',
+                                                SENDER_LOCATION_TYPE: deliveryCurrentType.delivery_type
+                                            };
+                                        }
 
-									locationItemsHtml += templateCompilator.compile( locationItem.html(), templateLocationParams );
+										locationItemsHtml += templateCompilator.compile( locationItem.html(), templateLocationParams );
+									}
 
 									registerLocations.push( currentLocation[ locationType ].toLowerCase() );
 								}
@@ -675,7 +729,7 @@ if( $type === 'our' )
 								var registerLocations = [];
 								var senderLocationItems;
 								var receiverLocationItems;
-								
+                                
 								if( deliveryCurrentType.delivery_type !== 'cargo' && deliveryCurrentType.delivery_type !== 'standart' )
 								{
 									senderLocationItems = getLocationOption( deliveryCurrentType, 'country', senderLocationCountry );
@@ -683,8 +737,8 @@ if( $type === 'our' )
 								}
 								else
 								{
-									senderLocationItems = getLocationOption( deliveryCurrentType, 'city', senderLocationCity );
-									receiverLocationItems = getLocationOption( deliveryCurrentType, 'city', receiverLocationCity );
+									senderLocationItems = getLocationOption( deliveryCurrentType, 'city', senderLocationCountry );
+									receiverLocationItems = getLocationOption( deliveryCurrentType, 'city', receiverLocationCountry );
 								}
 								
 								let countries_list_params =
@@ -693,7 +747,8 @@ if( $type === 'our' )
 									paramCity: receiverLocationCity,
 									calculatedWeight: result_weight,
 									fuelIncrease: deliveryCurrentType.fuel_increase / 100,
-									minPriceMaxSegment: deliveryCurrentType.min_price_max_segment
+									minPriceMaxSegment: deliveryCurrentType.min_price_max_segment,
+									onlyCountry: true
 								};
 								
 								var price = Calculate.getPriceByWeight( countries_list[ deliveryCurrentType.delivery_type ], countries_list_params )
@@ -814,11 +869,20 @@ if( $type === 'our' )
 							
 							var calculateOrderWindow = $( '.calculate-order-window' );
 							
-							calculateOrderWindow.append( deliveryTypesHtml );
+							calculateOrderWindow.html( deliveryTypesHtml );
+                            
+                            let selectedItems = $( '.selected' );
+                            
+                            selectedItems.each( function( sn )
+                            {
+                                selectedItems.eq( sn ).parent()[ 0 ].selectedIndex = selectedItems.eq( sn ).index();
+                            } );
 							
-							var deliveryTypesContainer = $( '.delivery-types' );
+							var deliveryTypesContainer = '<div class="delivery-types float-left">';
+							deliveryTypesContainer += deliveryTypesDescription;
+							deliveryTypesContainer += '</div>';
 							
-							deliveryTypesContainer.append( deliveryTypesDescription );
+							calculateOrderWindow.prepend( deliveryTypesContainer );
 							
 							OCalculator.nextPage();
 							
@@ -861,22 +925,39 @@ if( $type === 'our' )
 }
 else
 {
-
+	
 ?>
+	<script type="text/template" id="location-item">
+		<li data-value="{{LOCATION_SLUG}}" class="locations-select-item{{SELECTED}}">{{LOCATION_NAME}}</li>
+	</script>
+
 	<script type="text/javascript">
 	$( window ).ready( function()
 	{
 		var calculateData = JSON.parse( '<?php echo addslashes( json_encode( $countries_list[ $type ] ) ); ?>' );
+		var typesSignature = JSON.parse( '<?php echo addslashes( json_encode( $types_signature ) ); ?>' );
 		var citiesList = JSON.parse( '<?php echo addslashes( json_encode( $citiesList ) ); ?>' );
 		var translateLocationsReverseUA = JSON.parse( '<?php echo addslashes( json_encode( $translate_locations_ua_reverse ) ); ?>' );
+		
+		$( 'input[name="weight"]' ).focus();
 		
 		var oValidator = new Validator( [
 			{
 				name: 'weight',
 				params: 
 				{
+					dependence: 
+					{
+						condition: 'isEmpty',
+						elementsList: [ 
+							$( 'input[name="width"]' ),
+							$( 'input[name="length"]' ),
+							$( 'input[name="height"]' )
+						]
+					},
 					isEmpty: true,
-					isNumber: true
+					isNumber: true,
+					limitIntegerLength: 2
 				}
 			},
 			
@@ -886,7 +967,8 @@ else
 				{
 					isEmpty: true,
 					isNumber: true,
-					notifyMessageIndent: '3rem'
+					notifyMessageIndent: '3rem',
+					limitIntegerLength: 2
 				}
 			},
 			
@@ -896,7 +978,8 @@ else
 				{
 					isEmpty: true,
 					isNumber: true,
-					notifyMessageIndent: '3rem'
+					notifyMessageIndent: '3rem',
+					limitIntegerLength: 2
 				}
 			},
 			
@@ -906,7 +989,8 @@ else
 				{
 					isEmpty: true,
 					isNumber: true,
-					notifyMessageIndent: '3rem'
+					notifyMessageIndent: '3rem',
+					limitIntegerLength: 2
 				}
 			},
 			
@@ -915,8 +999,9 @@ else
 				params: 
 				{
 					isSelect: true,
-					additionalField: $( 'select[name="country"]' ).parent()[0],
-					notifyMessageIndent: '3rem'
+					additionalField: $( 'div[name="country"]' ).parent()[ 0 ],
+					width: getTopParent( $( 'div[name="country"' ), 'coption-select-container' )[ 0 ].offsetWidth,
+					fromStartPosition: true
 				}
 			},
 			
@@ -925,8 +1010,9 @@ else
 				params: 
 				{
 					isSelect: true,
-					additionalField: $( 'select[name="city"]' ).parent()[0],
-					notifyMessageIndent: '3rem'
+					additionalField: $( 'div[name="city"]' ).parent()[ 0 ],
+					width: getTopParent( $( 'div[name="city"' ), 'coption-select-container' )[ 0 ].offsetWidth,
+					fromStartPosition: true
 				}
 			}
 		] );
@@ -963,18 +1049,29 @@ else
 				
 				if( ! checkErrors )
 				{
-					var calculateWidthInput = $( 'input[name="weight"]' );
-					var calculatedWeight = formatFloat( calculateWidthInput.val() );
-					var paramCountry = $( 'select[name="country"]' );
-					paramCountry = paramCountry.find( 'option' ).eq( paramCountry[ 0 ].selectedIndex );
-					var paramCity = $( 'select[name="city"]' );
-					paramCity = paramCity.find( 'option' ).eq( paramCity[ 0 ].selectedIndex );
+					var calculateWeightInput = $( 'input[name="weight"]' );
+					var calculatedWeight = formatFloat( calculateWeightInput.val() );
+					var paramCountry = $( 'div[name="country"]' );
+					paramCountry = paramCountry.find( 'li' ).eq( paramCountry[ 0 ].selectedIndex );
+					var paramCity = $( 'div[name="city"]' );
+					paramCity = paramCity.find( 'li' ).eq( paramCity[ 0 ].selectedIndex );
 					
 					let paramWidth = $( 'input[name="width"]' );
 					let paramLength = $( 'input[name="length"]' );
 					let paramHeight = $( 'input[name="height"]' );
 					
-					var calculatedCapacity = Calculate.getCapacity( formatFloat( paramWidth.val() ), formatFloat( paramLength.val() ), formatFloat( paramHeight.val() ), '<?php echo $calculate_data[ "ethalon_value" ][ "parcels" ]; ?>' );
+					var deliveryCurrentType = typesSignature[ 2 ];
+					let deliverySubType = $( '.locations-select' )[ 0 ].selectedIndex;
+					deliverySubType = deliverySubType !== undefined ? $( '.locations-select' ).find( '.locations-select-item' ).eq( deliverySubType ).attr( 'data-value' ) : deliverySubType;
+					
+					if( deliverySubType !== undefined && deliverySubType === 'documents' && deliveryCurrentType.ethalon_value.documents !== undefined )
+					{
+						var calculatedCapacity = Calculate.getCapacity( formatFloat( paramWidth.val() ), formatFloat( paramLength.val() ), formatFloat( paramHeight.val() ), deliveryCurrentType.ethalon_value.documents );
+					}
+					else
+					{
+						var calculatedCapacity = Calculate.getCapacity( formatFloat( paramWidth.val() ), formatFloat( paramLength.val() ), formatFloat( paramHeight.val() ), deliveryCurrentType.ethalon_value.parcels );
+					}
 					
 					if( calculatedWeight < calculatedCapacity )
 					{
@@ -986,8 +1083,8 @@ else
 						calculatedWeight: calculatedWeight,
 						calculateResult: $( '.calculate-result' ),
 						fuelIncrease: '<?php echo $calculate_data[ "fuel_increase" ] / 100; ?>',
-						paramCountry: paramCountry.val(),
-						paramCity: paramCity.val(),
+						paramCountry: paramCountry.attr( 'data-value' ),
+						paramCity: paramCity.attr( 'data-value' ),
 						minPriceMaxSegment: '<?php echo $calculate_data[ "delivery_max_min_price" ]; ?>',
 						calculatedCapacity: calculatedCapacity
 					}
@@ -1002,7 +1099,7 @@ else
 					}
 					else if( typeof priceCalculateResult === 'object' && priceCalculateResult.status === 'under' )
 					{
-						let message = '<?php echo $translate_locations_ua_reverse[ "message_min_price" ]; ?> ' + ( priceCalculateResult.value + ( priceCalculateResult.value * calculatePriceParams.fuelIncrease ) );
+						let message = '<?php echo $translate_locations_ua_reverse[ "message_min_price" ]; ?> ' + priceCalculateResult.value;
 						
 						calculatePriceParams.calculateResult.html( message );
 					}
@@ -1017,56 +1114,146 @@ else
 			} );
 		} );
 		
-		let coptionSelect = $( '.coption-select' );
-		var citiesSelect = $( 'select[name="city"]' );
-		var locationItem = $( '#location-item' );
-		
-		coptionSelect.on( 'change', function( e )
+		function setLocationsSelect( selectWidgetWrapper, selectButton, selectContainer, itemsListContainer, searchField )
 		{
-			let thisSelectButton = $( this );
-
-			var currentOption = thisSelectButton.find( 'option' ).eq( thisSelectButton[0].selectedIndex );
-			thisSelectButton.parent().find( '.coption-select-title' ).text( currentOption.text() );
+			var selectContainerStatus = false;
 			
-			if( thisSelectButton.attr( 'name' ) === 'country' )
+			$( '.' + selectButton ).on( 'click', function()
 			{
-				var cityItems = '';
-				var currentCountry = citiesList[ currentOption.val() ];
-				
-				for( let i in currentCountry )
+				if( selectContainerStatus === false )
 				{
-					let templateLocationParams = 
-					{
-						LOCATION_SLUG: currentCountry[ i ],
-						LOCATION_NAME: translateLocationsReverseUA[ currentCountry[ i ] ],
-						SELECTED: i === 0 ? 'selected' : ''
-					};
-
-					if( translateLocationsReverseUA[ currentCountry[ i ] ] !== undefined )
-					{
-						cityItems += templateCompilator.compile( locationItem.html(), templateLocationParams );
-					}
-				}
-				
-				if( cityItems !== '' )
-				{
-					let templateLocationParams = 
-					{
-						LOCATION_SLUG: '',
-						LOCATION_NAME: translateLocationsReverseUA[ 'select_action_city' ],
-						SELECTED: 'selected'
-					};
-					
-					cityItems = templateCompilator.compile( locationItem.html(), templateLocationParams ) + cityItems;
-					citiesSelect.html( cityItems );
-					citiesSelect.parent().find( '.coption-select-title' ).text( translateLocationsReverseUA[ 'select_action_city' ] );
+					show( $( this ) );
 				}
 				else
 				{
-					citiesSelect.html( '' );
+					hide( $( this ) );
 				}
+			} );
+			
+			function show( selectedButton = false )
+			{
+				if( selectedButton === false )
+				{
+					$( '.' + selectContainer ).show();
+				}
+				else
+				{
+					selectedButton.parent().find( '.' + selectContainer ).show();
+					selectedButton.parent().find( 'input[name="search_location"]' ).focus();
+					
+					let icon = selectedButton.find( '.coption-select-icon' );
+					icon.removeClass( 'fa-caret-down' );
+					icon.addClass( 'fa-caret-up' );
+				}
+					
+				selectContainerStatus = true;
 			}
-		} );
+			
+			function hide( selectedButton = false )
+			{
+				if( selectedButton === false )
+				{
+					$( '.' + selectContainer ).hide();
+				}
+				else
+				{
+					selectedButton.parent().find( '.' + selectContainer ).hide();
+					
+					let icon = selectedButton.find( '.coption-select-icon' );
+					icon.removeClass( 'fa-caret-up' );
+					icon.addClass( 'fa-caret-down' );
+				}
+					
+				selectContainerStatus = false;
+			}
+			
+			$( document ).on( 'click', function( e )
+			{
+				var target = $( e.target );
+				
+				target = getTopParent( target, selectWidgetWrapper );
+				
+				if( ! target.hasClass( selectWidgetWrapper ) )
+				{
+					hide();
+				}
+			} );
+			
+			$( '.' + selectContainer ).on( 'click', function( e )
+			{
+				var target = $( e.target );
+				
+				if( target[ 0 ].tagName === 'LI' )
+				{
+					let currentItem = target.index();
+					var oldTarget = target;
+					
+					target = getTopParent( target, selectContainer )
+					target[ 0 ].selectedIndex = currentItem;
+					target.parent().find( '.coption-select-title' ).text( oldTarget.text() );
+					
+					if( target.attr( 'name' ) === 'country' )
+					{
+						var citiesSelect = $( 'div[name="city"]' );
+						var locationItem = $( '#location-item' );
+						var cityItems = '';
+						var currentCountry = citiesList[ oldTarget.attr( 'data-value' ) ];
+						
+						for( let i in currentCountry )
+						{
+							let templateLocationParams = 
+							{
+								LOCATION_SLUG: currentCountry[ i ],
+								LOCATION_NAME: translateLocationsReverseUA[ currentCountry[ i ] ],
+								SELECTED: ''
+							};
+
+							if( translateLocationsReverseUA[ currentCountry[ i ] ] !== undefined )
+							{
+								cityItems += templateCompilator.compile( locationItem.html(), templateLocationParams );
+							}
+						}
+						
+						if( cityItems !== '' )
+						{
+							citiesSelect.find( '.' + itemsListContainer ).html( cityItems );
+							citiesSelect.parent().find( '.coption-select-title' ).text( translateLocationsReverseUA[ 'select_action_city' ] );
+						}
+						else
+						{
+							citiesSelect.find( '.' + itemsListContainer ).html( '' );
+						}
+					}
+					
+					hide();
+					
+					oldTarget.parent().find( '.location-item-active' ).removeClass( 'location-item-active' );
+					oldTarget.addClass( 'location-item-active' );
+				}
+			} );
+			
+			$( '.' + searchField ).on( 'input', function( e )
+			{
+				let searchField = $( this );
+				var searchValue = searchField.val();
+				let locationsList = getTopParent( searchField, selectContainer );
+				var locationsItems = locationsList.find( '.' + itemsListContainer + ' li' );
+				
+				locationsItems.each( function( i )
+				{
+					if( ( new RegExp( '^' + searchValue.toLowerCase() ) ).test( locationsItems.eq( i ).text().toLowerCase() ) === false && searchValue !== '' )
+					{
+						locationsItems.eq( i ).hide();
+					}
+					else
+					{
+						locationsItems.eq( i ).show();
+					}
+				} );
+			} );
+		}
+		
+		setLocationsSelect( 'coption-select-container', 'locations-button', 'locations-select', 'locations-select-list', 'search-location' );
 	} );
 </script>
 	

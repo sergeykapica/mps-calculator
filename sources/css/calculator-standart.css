@@ -1,6 +1,5 @@
 .calculate-cost {
-	width: 70%;
-	margin: 0 15%;
+	width: 100%;
 	padding: 2rem 1rem;
 	font-size: 1.5rem;
 }
@@ -11,18 +10,27 @@
 	margin-bottom: 1rem;
 }
 
+.calculate-section-30 {
+    width: 30%;
+    margin-right: 5%;
+}
+
+.calculate-section-30:last-child {
+    margin-right: 0;
+}
+
 .coptions-section-left {
-	width: 35%;
-	margin-right: 15%;
+	width: 45%;
+	margin-right: 10%;
 }
 
 .coptions-section-right {
-	width: 50%;
+	width: 45%;
 }
 
 .coption-block {
 	width: 100%;
-	margin-bottom: 1rem;
+	margin-bottom: 2rem;
 }
 
 .coption-title {
@@ -35,15 +43,18 @@
 }
 
 .coption-grey-border {
-	border-top: 1px solid #efefef;
-	border-left: 1px solid #efefef;
-	border-right: 5px solid #efefef;
-	border-bottom: 1px solid #efefef;
+	border: 1px solid #b2b2b2;
+}
+
+.coption-shadow {
+	-webkit-box-shadow: 0px 0px 15px 0px #c0c0c0 inset;
+	   -moz-box-shadow: 0px 0px 15px 0px #c0c0c0 inset;
+	        box-shadow: 0px 0px 15px 0px #c0c0c0 inset;
 }
 
 .coption-select-container {
 	position: relative;
-	width: 50%;
+	width: 100%;
 	padding: 1rem 0;
 	text-align: center;
 	
@@ -51,11 +62,11 @@
 
 .coption-select-icon {
 	color: #878787;
-	margin-right: .5rem;
+	margin-right: 1.5rem;
 }
 
 .coption-input-wrapper {
-	width: 50%;
+	width: 100%;
 }
 
 .coption-input {
@@ -64,22 +75,65 @@
 	outline: 0;
 }
 
-.coption-select {
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	width: 100%;
-	-moz-opacity: 0;
-	opacity: 0;
- 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+.locations-button {
 	cursor: pointer;
+}
+
+.locations-select {
+	display: none;
+	width: 100%;
+	position: absolute;
+	top: 100%;
+	background-color: #fff;
+	z-index: 5;
+	border-left: 1px solid #b2b2b2;
+	border-right: 1px solid #b2b2b2;
+	border-bottom: 1px solid #b2b2b2;
+}
+
+.search-location-wrapper {
+	width: 100%;
+	margin: 10px 0;
+	padding: 0 5px;
+}
+
+.search-location {
+	width: 100%;
+	padding: 5px;
+}
+
+.locations-select-list {
+	display: inline-block;
+	min-width: 100%;
+	max-height: 200px;
+	margin: 0;
+	padding: 0 5px;
+	list-style-type: none;
+	overflow: auto;
+	background-color: #fff;
+}
+
+.locations-select-item {
+	cursor: pointer;
+}
+
+.locations-select-item:hover {
+	color: #fff;
+	background-color: #5897fb;
+}
+
+.location-item-active {
+	background-color: rgba(0, 0, 0, .2);
+}
+
+.locations-select-item {
+	padding: 2px;
+	text-align: left;
 }
 
 .coption-input-container {
 	position: relative;
-	width: 14%;
+	width: 30.66%;
 	margin-right: 4%;
 }
 

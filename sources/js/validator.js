@@ -8,7 +8,7 @@
         {
             for( let p in params )
             {
-                var currentFields = $( 'input[name="' + params[ p ].name + '"]' )[ 0 ] || $( 'select[name="' + params[ p ].name + '"]' )[ 0 ];
+                var currentFields = $( 'input[name="' + params[ p ].name + '"]' )[ 0 ] || $( 'select[name="' + params[ p ].name + '"]' )[ 0 ] || $( 'div[name="' + params[ p ].name + '"]' )[ 0 ];
 				currentFields = $( currentFields );
 				
                 for( let c in currentFields )
@@ -63,7 +63,7 @@
 
 								break;
 							}
-							else if( cp == 'isSelect' && currentField[ 0 ].selectedIndex <= 0 )
+							else if( cp == 'isSelect' && currentField[ 0 ].selectedIndex === undefined || cp == 'isSelect' && currentParams.fromStartPosition === undefined && currentField[ 0 ].selectedIndex <= 0 )
 							{
 								if( currentParams.notifyMessageIndent === undefined )
 								{
@@ -73,7 +73,14 @@
 									}
 									else
 									{
-										oValidator.generateMessage( currentField, 'Виберіть хоча б один пункт', undefined, currentParams.additionalField );
+										if( currentParams.width === undefined )
+										{
+											oValidator.generateMessage( currentField, 'Виберіть хоча б один пункт', undefined, currentParams.additionalField );
+										}
+										else
+										{
+											oValidator.generateMessage( currentField, 'Виберіть хоча б один пункт', undefined, currentParams.additionalField, currentParams.width );
+										}
 									}
 								}
 								else
@@ -88,6 +95,36 @@
 									}
 								}
 							}
+							else if( cp == 'dependence' )
+							{
+								if( currentParams.dependence.condition === 'isEmpty' )
+								{
+									var emptyStatus = 0;
+									
+									for( let i in currentParams.dependence.elementsList )
+									{
+										if( currentParams.dependence.elementsList[ i ].val() === '' )
+										{
+											emptyStatus++;
+										}
+									}
+									
+									if( emptyStatus === currentParams.dependence.elementsList.length && currentField.val() === '' )
+									{
+										oValidator.generateMessage( currentField, 'Введіть хоча б одне значення' );
+									}
+								}
+							}
+							else if( cp === 'limitIntegerLength' )
+							{
+								var restPart = formatFloat( currentField.val() ) * 1;
+								restPart = restPart.toString().match(/\.(\d+)/);
+								
+								if( restPart !== null && restPart[ 1 ].length > currentParams.limitIntegerLength )
+								{
+									oValidator.generateMessage( currentField, 'Число перевищує заданий поріг', currentField.outerHeight() );
+								}
+							}
 						}
 					}
                 }
@@ -99,7 +136,7 @@
 			}
         };
         
-        oValidator.generateMessage = function( currentField, message, notifyMessageIndent, field )
+        oValidator.generateMessage = function( currentField, message, notifyMessageIndent, field, width = false )
         {
         	currentField.addClass( 'validate-error' );
             
@@ -107,7 +144,16 @@
             errorMessage.classList.add( 'validate-error-content' );
             errorMessage.classList.add( 'bsizing-border-box' );
             errorMessage.classList.add( 'border-radius-5px' );
-            errorMessage.style.width = currentField[0].offsetWidth + 'px';
+			
+			if( width === false )
+			{
+				errorMessage.style.width = currentField[0].offsetWidth + 'px';
+			}
+			else
+			{
+				errorMessage.style.width = width + 'px';
+			}
+				
             errorMessage.innerText = message;
 			
 			if( notifyMessageIndent !== undefined )

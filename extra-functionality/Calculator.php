@@ -4,7 +4,7 @@ class Calculator
 {
 	static public function get_calculator( $type, $delivery_sub_types = false, $countries_list )
 	{
-		global $wpdb, $translate_locations_ua_reverse, $translate_locations, $translate_strings;
+		global $wpdb, $translate_locations_ua_reverse, $translate_locations, $translate_strings, $min_prices_list;
 		
 		// get delivery types
 		
@@ -25,6 +25,7 @@ class Calculator
 								. 'WHERE mpt.delivery_type = %s', $type ) ) )
 			{
 				$calculate_data = self::get_sorted_structure( $delivery_type_data );
+				$types_signature = $calculate_data;
 				$calculate_data = array_values( $calculate_data )[ 0 ];
 				$citiesList = array();
 				

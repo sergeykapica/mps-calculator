@@ -50,6 +50,84 @@
 		width: 70%;
 		font-size: 14px;
 	}
+	
+	.coption-input-container {
+		width: 100%;
+		margin-right: 0;
+		margin-bottom: 2rem;
+	}
+	
+	.coption-input-container:last-child {
+		margin-bottom: 0;
+	}
+}
+
+@media screen and ( max-width: 940px ) {
+	
+	.cparam-input-container {
+		width: 100%;
+		margin-right: 0;
+		margin-bottom: 1rem;
+	}
+	
+	.calculate-button {
+		width: 100%;
+		margin-bottom: 10px;
+	}
+	
+	.headline-params, .calculate-data-headline {
+		margin-top: 10px !important;
+		font-size: 14px;
+	}
+	
+	.calculate-headline {
+		font-size: 16px;
+	}
+	
+	.location-country {
+		width: 100%;
+		margin-right: 0;
+		margin-bottom: 1.5rem;
+	}
+	
+	.location-city {
+		width: 100%;
+	}
+	
+	.cparam-input-container {
+		width: 100%;
+		margin-right: 0;
+		margin-bottom: 1rem;
+	}
+	
+	.calculate-buttons {
+		width: 100%;
+		margin: 1rem 0 0 0;
+	}
+	
+	.calculate-button {
+		width: 100%;
+		margin-right: 0;
+	}
+	
+	.calculate-data-item {
+		width: 100%;
+	}
+	
+	.delivery-description-headline {
+		width: 70%;
+		font-size: 14px;
+	}
+	
+	.coption-input-container {
+		width: 100%;
+		margin-right: 0;
+		margin-bottom: 2rem;
+	}
+	
+	.coption-input-container:last-child {
+		margin-bottom: 0;
+	}
 }
 
 @media screen and ( max-width: 1200px )
@@ -57,5 +135,10 @@
 	.calculate-options-section {
 		width: 100%;
 		margin-right: 0;
+	}
+	
+	.calculate-buttons {
+		width: 100%;
+		margin: 1rem 0 0 0;
 	}
 }
